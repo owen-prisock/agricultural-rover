@@ -1,0 +1,9 @@
+.pio/
+build/
+install/
+log/
+__pycache__/
+*.pyc
+*-backups/
+fp-info-cache
+.vscode/
