@@ -1,0 +1,234 @@
+<?xml version ="1.0"?>
+<robot name = "rover" xmlns:xacro = "http://www.ros.org/wiki/xacro">
+    <link name = "base_link">
+    <visual>
+        <geometry>
+            <box size = "0.421 0.272 0.132"/>
+</geometry>
+<origin xyz = "0 0 0.25" rpy = "0 0 0"/>
+<material name = "grey">
+    <color rgba = "0.5 0.5 0.5 1.0"/>
+</material>
+</visual>
+</link>
+
+<link name = "left_rocker_link"/>
+
+<!-- joint from base to left rocker -->
+<joint name = "base_to_left_rocker" type = "revolute">
+    <parent link = "base_link"/>
+    <child link = "left_rocker_link"/>
+    <origin xyz = "0.072 0.136 0.256" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/> <!-- rotation about y-axis -->
+    <limit lower ="${-pi/6}" upper ="${pi/6}" effort ="10" velocity = "1"/>
+    </joint>
+
+    <link name = "left_front_steer_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.05" radius = "0.02"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "0 0 0"/>
+        <material name = "blue">
+            <color rgba = "0 0 1 1.0"/>
+        </material>
+    </visual>
+    </link>
+
+    <joint name="left_rocker_to_left_front_steer" type="revolute">
+  <parent link="left_rocker_link"/>
+  <child link="left_front_steer_link"/>
+  <origin xyz="0.2056 0.16615 -0.191" rpy="0 0 0"/>
+  <axis xyz="0 0 1"/>
+  <limit lower="${-pi/3}" upper="${pi/3}" effort="10" velocity="1"/>
+</joint>
+
+<link name = "left_front_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black">
+            <color rgba = "0 0 0 1.0"/>
+        </material>
+    </visual>
+</link>
+
+<joint name = "left_front_steer_to_left_front_wheel" type = "continuous">
+    <parent link = "left_front_steer_link"/>
+    <child link = "left_front_wheel_link"/>
+    <origin xyz = "0 0 0" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/> <!-- rotation about y-axis -->
+</joint>
+
+<link name ="left_bogie_link"/>
+<joint name = "left_rocker_to_left_bogie" type = "revolute">
+    <parent link = "left_rocker_link"/>
+    <child link = "left_bogie_link"/>
+    <origin xyz = "-0.194 0 -0.075" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/> <!-- rotation about y-axis -->
+    <limit lower ="${-pi/6}" upper ="${pi/6}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "left_mid_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black"/>
+    </visual>
+</link>
+
+<joint name = "left_bogie_to_left_mid_wheel" type = "continuous">
+    <parent link = "left_bogie_link"/>
+    <child link = "left_mid_wheel_link"/>
+    <origin xyz = "0.122 0.16615 -0.116" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+</joint>
+
+<link name = "left_rear_steer_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.05" radius = "0.02"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "0 0 0"/>
+        <material name = "blue"/>
+    </visual>
+</link>
+
+<joint name = "left_bogie_to_left_rear_steer" type = "revolute">
+    <parent link = "left_bogie_link"/>
+    <child link = "left_rear_steer_link"/>
+    <origin xyz = "-0.262 0.16615 -0.116" rpy = "0 0 0"/>
+    <axis xyz = "0 0 1"/>
+    <limit lower ="${-pi/3}" upper ="${pi/3}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "left_rear_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black"/>
+    </visual>
+</link>
+
+<joint name = "left_rear_steer_to_left_rear_wheel" type = "continuous">
+    <parent link = "left_rear_steer_link"/>
+    <child link = "left_rear_wheel_link"/>
+    <origin xyz = "0 0 0" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+</joint>
+
+<link name = "right_rocker_link"/>
+
+<!-- joint from base to right rocker -->
+<joint name = "base_to_right_rocker" type = "revolute">
+    <parent link = "base_link"/>
+    <child link = "right_rocker_link"/>
+    <origin xyz = "0.072 -0.136 0.256" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+    <limit lower ="${-pi/6}" upper ="${pi/6}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "right_front_steer_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.05" radius = "0.02"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "0 0 0"/>
+        <material name = "blue"/>
+    </visual>
+</link>
+
+<joint name = "right_rocker_to_right_front_steer" type = "revolute">
+    <parent link = "right_rocker_link"/>
+    <child link = "right_front_steer_link"/>
+    <origin xyz = "0.2056 -0.16615 -0.191" rpy = "0 0 0"/>
+    <axis xyz = "0 0 1"/>
+    <limit lower ="${-pi/3}" upper ="${pi/3}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "right_front_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black"/>
+    </visual>
+</link>
+
+<joint name = "right_front_steer_to_right_front_wheel" type = "continuous">
+    <parent link = "right_front_steer_link"/>
+    <child link = "right_front_wheel_link"/>
+    <origin xyz = "0 0 0" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+</joint>
+
+<link name = "right_bogie_link"/>
+
+<joint name = "right_rocker_to_right_bogie" type = "revolute">
+    <parent link = "right_rocker_link"/>
+    <child link = "right_bogie_link"/>
+    <origin xyz = "-0.194 0 -0.075" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+    <limit lower ="${-pi/6}" upper ="${pi/6}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "right_mid_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black"/>
+    </visual>
+</link>
+
+<joint name = "right_bogie_to_right_mid_wheel" type = "continuous">
+    <parent link = "right_bogie_link"/>
+    <child link = "right_mid_wheel_link"/>
+    <origin xyz = "0.122 -0.16615 -0.116" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+</joint>
+
+<link name = "right_rear_steer_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.05" radius = "0.02"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "0 0 0"/>
+        <material name = "blue"/>
+    </visual>
+</link>
+
+<joint name = "right_bogie_to_right_rear_steer" type = "revolute">
+    <parent link = "right_bogie_link"/>
+    <child link = "right_rear_steer_link"/>
+    <origin xyz = "-0.262 -0.16615 -0.116" rpy = "0 0 0"/>
+    <axis xyz = "0 0 1"/>
+    <limit lower ="${-pi/3}" upper ="${pi/3}" effort ="10" velocity = "1"/>
+</joint>
+
+<link name = "right_rear_wheel_link">
+    <visual>
+        <geometry>
+            <cylinder length = "0.0848" radius = "0.065"/>
+        </geometry>
+        <origin xyz = "0 0 0" rpy = "${pi/2} 0 0"/>
+        <material name = "black"/>
+    </visual>
+</link>
+
+<joint name = "right_rear_steer_to_right_rear_wheel" type = "continuous">
+    <parent link = "right_rear_steer_link"/>
+    <child link = "right_rear_wheel_link"/>
+    <origin xyz = "0 0 0" rpy = "0 0 0"/>
+    <axis xyz = "0 1 0"/>
+</joint>
+
+</robot>
